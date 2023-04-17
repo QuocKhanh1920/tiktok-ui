@@ -21,9 +21,16 @@
     }
 }
 
+.icon {
+    display: inline-block;
+    width: 24px;
+    text-align: center;
+}
+
 .icon+.title,
 .title+.icon {
     margin-left: 12px;
+    display: flex;
 }
 
 
