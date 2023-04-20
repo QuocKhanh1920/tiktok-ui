@@ -17,7 +17,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faCircleXmark,
     faSpinner,
-    faMagnifyingGlass,
     faPlus,
     faEllipsisVertical,
     faGlobe,
@@ -38,7 +37,11 @@ import Button from '~/components/Button';
 
 import Menu from '~/components/Popper/Menu';
 
-import { faMessage, faPaperPlane, faUser } from '@fortawesome/free-regular-svg-icons';
+import Image from '~/components/Image';
+
+import { faUser } from '@fortawesome/free-regular-svg-icons';
+
+import { InboxIcon, MessageIcon, SearchIcon, UploadIcon } from '~/components/Icons';
 
 const cx = classNames.bind(styles);
 
@@ -144,14 +147,14 @@ function Header() {
                         )}
                     >
                         <div className={cx('search')}>
-                            <input placeholder="Search accounts and videos" />
+                            <input placeholder="Search" />
                             <button className={cx('clear')}>
                                 <FontAwesomeIcon icon={faCircleXmark} />
                             </button>
                             <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />
 
                             <button className={cx('search-btn')}>
-                                <FontAwesomeIcon icon={faMagnifyingGlass} />
+                                <SearchIcon />
                             </button>
                         </div>
                     </HeadlessTippy>
@@ -160,17 +163,18 @@ function Header() {
                 <div className={cx('action')}>
                     {currentUser ? (
                         <>
-                            <Button text leftIcon={<FontAwesomeIcon icon={faPlus} />}>
-                                Upload
+                            <Button text className={cx('upload')}>
+                                <UploadIcon className={cx('upload-icon')} />
+                                <p>Upload</p>
                             </Button>
-                            <Tippy delay={200} content="Messages" placement="bottom">
-                                <button className={cx('action-btn')}>
-                                    <FontAwesomeIcon className={cx('action-icon')} icon={faPaperPlane} />
+                            <Tippy delay={[0, 200]} content="Messages" placement="bottom">
+                                <button className={cx('action-btn', 'message-icon')}>
+                                    <MessageIcon />
                                 </button>
                             </Tippy>
-                            <Tippy delay={200} content="Inbox" placement="bottom">
+                            <Tippy delay={[0, 200]} content="Inbox" placement="bottom">
                                 <button className={cx('action-btn')}>
-                                    <FontAwesomeIcon className={cx('action-icon')} icon={faMessage} />
+                                    <InboxIcon />
                                 </button>
                             </Tippy>
                         </>
@@ -184,10 +188,11 @@ function Header() {
                     )}
                     <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {currentUser ? (
-                            <img
+                            <Image
                                 className={cx('user-avatar')}
-                                src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-aiso/65d3c6b1d1e205c75536ccf1f26d552d~c5_100x100.jpeg?x-expires=1682046000&x-signature=Y37yvwPHclHecWU1bQJcDiGOlcM%3D"
+                                src="https://p16-sign-va.tiktokcdn.com/to-useast2a-avt-0068-aiso/65d3c6b1d1e205c75536ccf1f26d552d~c5_100x100.jpeg?x-expires=1682046000&x-signature=Y37yvwPHclHecWU1bQJcDiGOlcM%3D"
                                 alt="user avatar"
+                                fallback="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
                             />
                         ) : (
                             <button className={cx('more-btn')}>
