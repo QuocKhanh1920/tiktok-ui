@@ -6,6 +6,8 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 
 import AccountItem from '~/components/AccountItem';
 
+import { useDebounce } from '~/hooks';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
@@ -29,6 +31,8 @@ function Search() {
 
     const inputRef = useRef();
 
+    const debounced = useDebounce(searchValue, 500);
+
     const handleClear = () => {
         setSearchValue('');
         inputRef.current.focus();
@@ -39,27 +43,34 @@ function Search() {
         setShowResult(false);
     };
 
-    const handleKeyDown = (e) => {
-        if (!searchValue && e.key === ' ') {
-            e.preventDefault();
+    // const handleKeyDown = (e) => {
+    //     if (!searchValue && e.key === ' ') {
+    //         e.preventDefault();
+    //     }
+    // };
+
+    const handleChange = (e) => {
+        const searchValue = e.target.value;
+        if (!searchValue.startsWith(' ')) {
+            setSearchValue(searchValue);
         }
     };
 
     useEffect(() => {
-        if (!searchValue) {
+        if (!debounced.trim()) {
             setSearchResult([]);
             return;
         }
 
         setLoading(true);
 
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
             .then((res) => res.json())
             .then((res) => {
                 setSearchResult(res.data);
                 setLoading(false);
             });
-    }, [searchValue]);
+    }, [debounced]);
     return (
         <div className={cx('search-box')}>
             <HeadlessTippy
@@ -82,12 +93,12 @@ function Search() {
                         ref={inputRef}
                         value={searchValue}
                         placeholder="Search"
-                        onKeyDown={handleKeyDown}
+                        // onKeyDown={handleKeyDown}
                         spellCheck={false}
-                        onChange={(e) => setSearchValue(e.target.value)}
+                        onChange={handleChange}
                         onFocus={() => setShowResult(true)}
                     />
-                    {!!searchValue && loading && (
+                    {!!searchValue && !loading && (
                         <button className={cx('clear')} onClick={handleClear}>
                             <FontAwesomeIcon icon={faCircleXmark} />
                         </button>
