@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import HeadlessTippy from '@tippyjs/react/headless';
 
-import * as searchService from '~/apiService/searchService';
+import * as searchService from '~/service/searchService';
 
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 
