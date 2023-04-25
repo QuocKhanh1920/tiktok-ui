@@ -25,6 +25,8 @@ import {
     faArrowRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
 
+import routesConfig from '~/config/routes';
+
 import Button from '~/components/Button';
 
 import Menu from '~/components/Popper/Menu';
@@ -110,7 +112,7 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <Link to={'/'} className={cx('logo')}>
+                <Link to={routesConfig.home} className={cx('logo')}>
                     <img src={images.logo} alt="TikTok" />
                 </Link>
 
