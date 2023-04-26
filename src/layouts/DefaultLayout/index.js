@@ -1,12 +1,14 @@
-import Header from "../components/Header";
+import PropTypes from 'prop-types';
 
-import Sidebar from "./Sidebar";
+import Header from '../components/Header';
 
-import classNames from "classnames/bind";
+import Sidebar from './Sidebar';
 
-import styles from './DefaultLayour.module.scss'
+import classNames from 'classnames/bind';
 
-const cx = classNames.bind(styles)
+import styles from './DefaultLayour.module.scss';
+
+const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
     return (
@@ -14,12 +16,14 @@ function DefaultLayout({ children }) {
             <Header />
             <div className={cx('container')}>
                 <Sidebar />
-                <div className={cx('content')}>
-                    {children}
-                </div>
+                <div className={cx('content')}>{children}</div>
             </div>
         </div>
-    )
+    );
 }
 
-export default DefaultLayout
+DefaultLayout.propTypes = {
+    children: PropTypes.node.isRequired,
+};
+
+export default DefaultLayout;

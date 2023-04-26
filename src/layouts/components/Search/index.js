@@ -45,12 +45,6 @@ function Search() {
         setShowResult(false);
     };
 
-    // const handleKeyDown = (e) => {
-    //     if (!searchValue && e.key === ' ') {
-    //         e.preventDefault();
-    //     }
-    // };
-
     const handleChange = (e) => {
         const searchValue = e.target.value;
         if (!searchValue.startsWith(' ')) {
@@ -98,7 +92,6 @@ function Search() {
                         ref={inputRef}
                         value={searchValue}
                         placeholder="Search"
-                        // onKeyDown={handleKeyDown}
                         spellCheck={false}
                         onChange={handleChange}
                         onFocus={() => setShowResult(true)}
