@@ -13,7 +13,6 @@ import images from '~/assets/images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
-    faPlus,
     faEllipsisVertical,
     faGlobe,
     faCircleQuestion,
@@ -139,8 +138,9 @@ function Header() {
                         </>
                     ) : (
                         <>
-                            <Button text leftIcon={<FontAwesomeIcon icon={faPlus} />}>
-                                Upload
+                            <Button text className={cx('upload')}>
+                                <UploadIcon className={cx('upload-icon')} />
+                                <p>Upload</p>
                             </Button>
                             <Button primary>Log in</Button>
                         </>
